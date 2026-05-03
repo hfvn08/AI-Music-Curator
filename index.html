@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Music Curator - 당신의 기분과 날씨에 딱 맞는 음악 추천</title>
+    <meta name="description" content="AI가 지금 당신의 기분과 날씨를 분석하여 최적의 플레이리스트를 추천해 드립니다. 전 세계 TOP 100 차트와 함께 특별한 음악 경험을 시작하세요.">
+    
+    <!-- Open Graph / Facebook / KakaoTalk -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ai-music-curator.vercel.app/">
+    <meta property="og:title" content="AI Music Curator">
+    <meta property="og:description" content="지금 이 순간, 당신에게 가장 필요한 음악을 AI가 찾아드립니다.">
+    <meta property="og:image" content="music_curator_icon_1777804986421.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="AI Music Curator">
+    <meta property="twitter:description" content="당신만의 AI 음악 큐레이터. 기분과 날씨에 맞춘 완벽한 선곡.">
+    <meta property="twitter:image" content="music_curator_icon_1777804986421.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="music_curator_icon_1777804986421.png">
+    <link rel="apple-touch-icon" href="music_curator_icon_1777804986421.png">
+
+    <link rel="stylesheet" href="styles.css">
+    <!-- SF Pro Display font equivalent from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-container">
+        <!-- The background image generated will be set via CSS -->
+    </div>
+
+    <div class="main-wrapper">
+        <!-- 왼쪽 균형 스페이서: 오른쪽 차트와 동일 너비로 큐레이터를 정중앙 배치 -->
+        <div class="chart-spacer" aria-hidden="true"></div>
+
+        <div class="app-container">
+            <header class="app-header">
+                <div class="header-content">
+                    <h1>AI Music Curator</h1>
+                    <p>당신만의 플레이리스트를 만들어보세요</p>
+                </div>
+                <button id="settingsBtn" class="icon-btn" aria-label="Settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </button>
+            </header>
+
+            <main class="main-content">
+                <section class="input-section glass-panel">
+                    <form id="curatorForm">
+                        <div class="form-group">
+                            <label for="moodInput">지금 기분이 어떠신가요?</label>
+                            <input type="text" id="moodInput" placeholder="예: 신남, 차분함, 우울함..." autocomplete="off">
+                        </div>
+                        <div class="form-group" id="weatherInputGroup">
+                            <label for="weatherInput">현재 날씨는 어떤가요?</label>
+                            <input type="text" id="weatherInput" placeholder="예: 비 오는 날, 화창한 오후..." autocomplete="off">
+                        </div>
+                        <div class="form-group">
+                            <label for="genreInput">듣고 싶은 장르는 무엇인가요?</label>
+                            <input type="text" id="genreInput" placeholder="예: 한국 밴드, 재즈, 팝...">
+                        </div>
+                        <button type="submit" class="primary-btn">
+                            <span class="btn-text">음악 추천받기</span>
+                            <div class="spinner hidden"></div>
+                        </button>
+                    </form>
+                </section>
+
+                <section id="resultSection" class="result-section hidden">
+                    <div id="playlistContainer" class="playlist-container">
+                        <!-- Playlist cards will be injected here -->
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- TOP 100 Side Panel (RIGHT) -->
+        <aside id="top100Panel" class="top100-panel glass-panel">
+            <div class="top100-header">
+                <h2 id="top100Title">🌏 글로벌 TOP 100</h2>
+                <p class="top100-subtitle" id="top100Subtitle">전 세계 인기 차트</p>
+            </div>
+            <div id="top100Loading" class="top100-loading hidden">
+                <div class="spinner"></div>
+                <span>차트 로딩 중...</span>
+            </div>
+            <ul id="top100List" class="top100-list"></ul>
+            <div class="top100-pagination">
+                <button id="top100Prev" class="chart-nav-btn" aria-label="이전 페이지">&#8592;</button>
+                <span id="top100PageInfo" class="top100-page-info">1 / 10</span>
+                <button id="top100Next" class="chart-nav-btn" aria-label="다음 페이지">&#8594;</button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2>설정</h2>
+                <button id="closeModalBtn" class="icon-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group theme-toggle-group">
+                    <label>테마 설정</label>
+                    <div class="toggle-container">
+                        <span class="toggle-label">라이트 모드</span>
+                        <label class="switch">
+                            <input type="checkbox" id="themeToggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="toggle-label">다크 모드</span>
+                    </div>
+                </div>
+                <div class="form-group theme-toggle-group">
+                    <label>현재 위치 정보 사용</label>
+                    <div class="toggle-container">
+                        <span class="toggle-label">OFF</span>
+                        <label class="switch">
+                            <input type="checkbox" id="autoWeatherToggle">
+                            <span class="slider round"></span>
+                        </label>
+                        <span class="toggle-label">ON (날씨·차트 자동)</span>
+                    </div>
+                    <small>켜면 현재 위치를 기반으로 날씨와 해당 국가 TOP 100 차트를 자동으로 표시합니다.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="preferredGenreInput">선호하는 장르 (선택 사항)</label>
+                    <input type="text" id="preferredGenreInput" placeholder="예: 재즈, 한국 밴드, 클래식...">
+                    <small>장르를 비워두고 추천받을 때 우선적으로 고려됩니다.</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveSettingsBtn" class="primary-btn small-btn">저장</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
